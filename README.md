@@ -114,21 +114,24 @@ $$y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}$$
 ###  Problem 3
 
 System Definition and Parameters
-* 設定輸入 $x(t) = e^{j\omega t}$  
-* 設定 RC 元件參數 $R$ 與 $C$  
-* 計算角頻率 $\omega = 2\pi f$  
+ 設定輸入 $x(t) = e^{j\omega t}$  
+ 設定 RC 元件參數 $R$ 與 $C$  
+ 計算角頻率 $\omega = 2\pi f$  
 
 Transfer Function
-* 計算 RC 低通濾波器傳遞函數：$$H(\omega) = \frac{1}{1 + RC j \omega}$$
-* 預計算 $RC\omega = f/400$  
+ 計算 RC 低通濾波器傳遞函數：
+ $$H(\omega) = \frac{1}{1 + RC j \omega}$$
+ 預計算 $RC\omega = f/400$  
 
 ---
 
 Case 1: $f = 100$ Hz
 計算傳遞函數：
  $$H(\Omega) = \frac{1}{1 + j0.25} = \frac{16}{17} - j\frac{4}{17}$$
+ 
 計算幅值與相位：
  $$|H| \approx 0.970, \quad \angle H \approx -14.04^\circ$$
+ 
 計算輸出信號：
  $$y(t) \approx 0.970 e^{j(200\pi t - 14.04^\circ)}$$
 
@@ -137,8 +140,10 @@ Case 1: $f = 100$ Hz
 Case 2: $f = 400$ Hz
 計算傳遞函數：
  $$H(\Omega) = \frac{1}{1 + j} = \frac{1}{2} - j \frac{1}{2}$$
+ 
 計算幅值與相位：
  $$|H| \approx 0.707, \quad \angle H = -45^\circ$$
+ 
 計算輸出信號：
  $$y(t) \approx 0.707 e^{j(800\pi t - 45^\circ)}$$
 
@@ -147,8 +152,10 @@ Case 2: $f = 400$ Hz
 Case 3: $f = 3000$ Hz
 計算傳遞函數：
  $$H(\Omega) = \frac{1}{1 + j7.5} = \frac{4}{229} - j \frac{30}{229}$$
+ 
 計算幅值與相位：
  $$|H| \approx 0.132, \quad \angle H \approx -82.41^\circ$$
+ 
 計算輸出信號：
  $$y(t) \approx 0.132 e^{j(6000\pi t - 82.41^\circ)}$$
 
