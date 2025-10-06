@@ -186,8 +186,6 @@ Case 3: $f = 3000$ Hz
  y(t) \approx 0.132 e^{j(6000\pi t - 82.41^\circ)}
  $$
 
-###  Problem 4
-
 ### Problem 4
 
 System Definition and Parameters
@@ -274,6 +272,58 @@ Case 3: $f = 3000$ Hz
  $$
 
 ###  Problem 5
+
+System Definition and Parameters
+ 設定差分方程：
+ 
+ $$
+ y[n] = \frac{RC}{R\tau+RC} y[n-1] + \frac{\tau}{R\tau+RC} x[n]
+ $$
+ 
+ 計算 Z 轉換：
+ 
+ $$
+ Y(z) = \frac{RC}{R\tau+RC} z^{-1} Y(z) + \frac{\tau}{R\tau+RC} X(z)
+ $$
+ 
+ 計算傳遞函數：
+ 
+ $$
+ H(z) = \frac{Y(z)}{X(z)} = \frac{\frac{\tau}{R\tau+RC}}{1 - \frac{RC}{R\tau+RC} z^{-1}} = \frac{\tau}{R\tau + RC - RC z^{-1}}
+ $$
+
+---
+
+Transfer Function Simplification
+ 將分子分母同除以 $\tau$：
+
+ $$
+ H(z) = \frac{1}{R + \frac{RC}{\tau} (1 - z^{-1})}
+ $$
+
+ 帶入 $RC = \frac{1}{800\pi}$：
+
+ $$
+ H(z) = \frac{1}{R + \frac{1}{800\pi \tau} (1 - z^{-1})}
+ $$
+
+---
+
+Frequency Response
+ 計算頻率響應 $H(\omega) = H(z)\big|_{z = e^{j\omega}}$：
+
+ $$
+ H(\omega) = \frac{1}{R + \frac{1}{800\pi \tau} (1 - e^{-j\omega})} = \frac{1}{1 + \frac{1}{800\pi \tau} (1 - e^{-j\omega})}
+ $$
+
+---
+
+Steady-State Response
+ 對輸入 $x[n] = e^{j\omega n}$，系統穩態響應為：
+
+ $$
+ y[n] = H(\omega) \cdot x[n] = \frac{1}{1 + \frac{1}{800\pi \tau} (1 - e^{-j\omega})} e^{j\omega n}
+ $$
 
 ###  Problem 6
 
