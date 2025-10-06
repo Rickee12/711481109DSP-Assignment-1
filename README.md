@@ -405,26 +405,40 @@ $$
 
 ## 目錄
 
-1. 檔案與包含檔（`#include`）
-2. 變數與常數定義（`#define`）
-3. `WAVHeader` 結構（注意事項）
-4. `extract_frequency_from_filename`：從檔名擷取測試頻率
-5. `print_simulation_analysis`：理論與模擬分析逐行說明
-6. `filter_audio`：濾波核心（單聲道 / 雙聲道）逐行說明
-7. `main`：整體流程與重要檢查點
-8. 理論推導與數學關係（為什麼 a, b 如此）
-9. 常見問題、潛在 bug 與改善建議
-10. 編譯、執行範例
-11. 輸出結果
+1.標頭與常數定義
+
+2.WAV 檔案結構定義
+
+3.檢查命令列參數
+
+4.開啟輸入檔案
+
+5.讀取 WAV header
+
+6.讀取 PCM 音訊資料
+
+7.從檔名解析濾波 cutoff frequency
+
+8.設定 RC 濾波參數
+
+9.初始化濾波暫存
+
+10.RC 低通濾波處理
+
+11.寫出濾波後 WAV
+
 ---
 
 ## 1. 標頭與常數定義
+
+```c
 #include <stdio.h>
 #include <math.h>
 #include <memory.h>
 #include <stdlib.h>
 #include <string.h>
 #define PI 3.14159265359
+```
 
 
 說明：
@@ -434,7 +448,8 @@ $$
 定義圓周率 PI
 
 ## 2. WAV檔案結構定義
-// c
+
+```c
 typedef struct {
     char chunkID[4];     
     unsigned int chunkSize;
@@ -456,26 +471,31 @@ typedef struct {
     char subchunk2ID[4]; 
     unsigned int subchunk2Size;
 } DataSubchunk;
-
+```
 
 說明：
 
 定義 WAV 檔案結構，用於讀寫 header 與資料區
 
 ## 3. 檢查命令列參數
-// int main(int argc, char *argv[])
+
+```c
+int main(int argc, char *argv[])
 {
     if(argc != 3){
         printf("Usage: %s in_fn out_fn\n", argv[0]);
         return 1;
     }
+```
 
 
 說明：
 
 確保使用者提供輸入檔名和輸出檔名
 
-    // 4. 開啟輸入檔案
+## 4. 開啟輸入檔案
+ 
+ ```c
     char *in_fn = argv[1];   
     char *out_fn = argv[2];  
 
@@ -484,13 +504,16 @@ typedef struct {
         fprintf(stderr, "Cannot open file %s\n", in_fn);
         return 1;
     }
+```
 
 
 說明：
 
 開啟 WAV 檔案，如果失敗則退出
 
-    // 5. 讀取 WAV header
+##  5. 讀取 WAV header
+
+```c
     RIFFHeader riff;
     FmtSubchunk fmt;
     DataSubchunk data;
@@ -498,13 +521,15 @@ typedef struct {
     fread(&riff, sizeof(RIFFHeader), 1, fp);
     fread(&fmt, sizeof(FmtSubchunk), 1, fp);
     fread(&data, sizeof(DataSubchunk), 1, fp);
-
+```
 
 說明：
 
 讀取 WAV header，取得取樣率、聲道數、位元深度等資訊
 
-    // 6. 讀取 PCM 音訊資料
+##  6. 讀取 PCM 音訊資料
+
+```c
     int fs = fmt.sampleRate;
     int bitsPerSample = fmt.bitsPerSample;
     int numChannels = fmt.numChannels;
@@ -513,7 +538,7 @@ typedef struct {
     short *stereo = malloc(N * fmt.numChannels * sizeof(short));
     fread(stereo, sizeof(short), N*fmt.numChannels, fp);
     fclose(fp);
-
+```
 
 說明：
 
@@ -523,7 +548,9 @@ typedef struct {
 
 讀入資料並關閉檔案
 
-    // 7. 從檔名解析 cutoff frequency
+## 7. 從檔名解析 cutoff frequency
+
+```c
     int f = 0;  // cutoff frequency
     char *first_f = strchr(in_fn, 'f');
     if(first_f != NULL){
@@ -537,7 +564,7 @@ typedef struct {
         fprintf(stderr, "Failed to extract cutoff frequency from filename.\n");
         return 1;
     }
-
+```
 
 說明：
 
@@ -545,12 +572,15 @@ typedef struct {
 
 若抓不到數字，程式退出
 
-    // 8. 設定 RC 濾波參數
+
+## 8. 設定 RC 濾波參數
+
+```c
     double T = 1.0/fs;   // 取樣週期
     double R = 1000;     
     double C = 1.0/(2*PI*f*1000);  // cutoff frequency 自動使用 f
     double a = R*C/(R*C+T);
-
+```
 
 說明：
 
@@ -558,9 +588,12 @@ typedef struct {
 
 用於離散一階 RC 濾波公式
 
-    // 9. 初始化濾波暫存
+## 9. 初始化濾波暫存
+
+```c
     double out_l = 0, out_r = 0;
     size_t total_samples = data.subchunk2Size / (numChannels * bitsPerSample / 8);
+```
 
 
 說明：
@@ -569,7 +602,9 @@ typedef struct {
 
 計算總取樣數
 
-    // 10. RC 低通濾波處理
+## 10. RC 低通濾波處理
+
+```c
     for (size_t n = 0; n < total_samples; n+=2){
         double in_L = stereo[n];       
         double in_R = stereo[n+1];     
@@ -587,14 +622,16 @@ typedef struct {
         if (stereo[n+1] < -32768) stereo[n+1] = -32768;
     }
 
-
+```
 說明：
 
 使用離散 RC 公式對左右聲道濾波
 
 限幅在 16-bit PCM 範圍內
 
-    // 11. 寫出濾波後 WAV
+## 11. 寫出濾波後 WAV
+
+```c
     fp = fopen(out_fn, "wb");
     if(!fp){ fprintf(stderr, "Cannot save %s\n", out_fn); exit(1); }
 
@@ -608,7 +645,7 @@ typedef struct {
 
     return 0;
 }
-
+```
 
 說明：
 
