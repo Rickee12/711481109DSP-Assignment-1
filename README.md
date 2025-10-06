@@ -80,15 +80,13 @@ Y(s) = \frac{1}{\tau} \left( \frac{A}{s - j\Omega} + \frac{B}{s + 1/\tau} \right
 $$
 
 係數：
-$$
-A = \frac{\tau}{1 + j\Omega \tau}, \quad
-B = -\frac{\tau}{1 + j\Omega \tau}
-$$
+
+$A = \frac{\tau}{1 + j\Omega \tau}, \quad$
+$B = -\frac{\tau}{1 + j\Omega \tau}$
 
 代回：
-$$
-Y(s) = \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s - j\Omega} - \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s + 1/\tau}
-$$
+
+$Y(s) = \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s - j\Omega} - \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s + 1/\tau}$
 
 
 ---
@@ -104,9 +102,9 @@ $$
 Step 5: Steady-State and Transient Response
 
 - Steady-State Response (穩態解)
-$$
-y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}
-$$
+  
+$y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}$
+
 
 
 - Transient Response (暫態解)
