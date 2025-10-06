@@ -383,17 +383,17 @@ Final Response \(y[n]\)
 
 將 Y(z) 的兩項進行 Z 反變換：
 
+穩態部分：
 $$
-Z^{-1}\left\{ \frac{A}{1 - e^{j\omega} z^{-1}} \right\} = A e^{j\omega n} u[n]
-$$
-
-$$
-Z^{-1}\left\{ \frac{B}{\tau + RC (1-z^{-1})} \right\} = \frac{B}{\tau} \left( \frac{RC}{\tau+RC} \right)^n u[n]
+y_{ss}[n] = \frac{\tau}{\tau + RC (1-e^{-j\omega})} \, e^{j\omega n} \, u[n]
 $$
 
-最終結果：
-
+暫態部分：
 $$
-y[n] = \frac{\tau}{\tau + RC (1-e^{-j\omega})} \, e^{j\omega n} \, u[n] 
-+ \frac{\tau}{1 - e^{j\omega} (1+\frac{\tau}{RC})} \cdot \frac{1}{\tau} \left( \frac{RC}{\tau+RC} \right)^n u[n]
+y_{tr}[n] = \frac{1}{1 - e^{j\omega} (1+\frac{\tau}{RC})} \left( \frac{RC}{\tau+RC} \right)^n u[n]
+$$
+
+最終完整響應：
+$$
+y[n] = y_{ss}[n] + y_{tr}[n]
 $$
