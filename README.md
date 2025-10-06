@@ -10,72 +10,26 @@
 
 ###  Problem 1 - LaTeX
 
-首先考慮一個串聯的 RC 電路，輸入電壓為 $x(t)$，輸出為電容兩端電壓 $y(t)$。
+### 微分方程推導
+根據 KVL（Kirchhoff 電壓定律）：
+$$x(t) = R \cdot I(t) + y(t)$$  
+又因為 $I(t) = C \frac{dy(t)}{dt}$，代入得到：
+$$x(t) = RC \frac{dy(t)}{dt} + y(t)$$  
 
-1. 根據 Kirchhoff 電壓定律 (KVL)，輸入電壓可表示為：
-   $$
-   x(t) = I(t) \cdot R + y(t)
-   $$
-   其中 $I(t)$ 為通過電阻與電容的電流。
-
-2. 電容兩端的電荷與電壓關係為：
-   $$
-   Q(t) = C \cdot y(t)
-   $$
-
-3. 電流為電荷的時間導數：
-   $$
-   I(t) = \frac{dQ(t)}{dt} = C \cdot \frac{dy(t)}{dt}
-   $$
-
-4. 將 (2)、(3) 式代回 (1)，得到微分方程：
-   $$
-   x(t) = R \left( C \frac{dy(t)}{dt} \right) + y(t)
-   $$
-   或簡化為：
-   $$
-   x(t) = RC \frac{dy(t)}{dt} + y(t)
-   $$
+這是 RC 電路的基本微分方程，描述輸入與輸出電壓的關係。
 
 ---
 
-## 頻率響應 $H(\nu)$（Fourier Transform）
+### 頻率響應
+對上式進行傅立葉轉換：
+$$X(\nu) = Y(\nu)(1 + j\nu RC)$$  
+因此：
+$$H(\nu) = \frac{Y(\nu)}{X(\nu)} = \frac{1}{1 + j\nu RC}$$  
 
-對上述微分方程進行傅立葉轉換，以求得頻率響應。
+此為 RC 電路的頻率響應，為**低通濾波器**特性。
 
-令：
-$$
-X(\nu) = \mathcal{F}\{x(t)\}, \quad 
-Y(\nu) = \mathcal{F}\{y(t)\}, \quad 
-H(\nu) = \frac{Y(\nu)}{X(\nu)} = \mathcal{F}\{h(t)\}
-$$
-
-將 $x(t) = RC \frac{dy(t)}{dt} + y(t)$ 兩邊取傅立葉轉換：
-
-$$
-X(\nu) = RC \cdot (j\nu) Y(\nu) + Y(\nu)
-$$
-
-整理得：
-$$
-X(\nu) = Y(\nu) (1 + j\nu RC)
-$$
-
-因此系統頻率響應為：
-$$
-H(\nu) = \frac{Y(\nu)}{X(\nu)} = \frac{1}{1 + j\nu RC}
-$$
 ---
 
-## 穩態輸出 $y(t)$（當 $x(t) = e^{j\nu t}$）
-
-若輸入訊號為複數指數形式：
-$$
-x(t) = e^{j\nu t}
-$$
-
-根據系統頻率響應：
-$$
-y(t) = x(t) \cdot H(\nu) = e^{j\nu t} \cdot \frac{1}{1 + j\nu RC}
-$$
-
+### 穩態輸出
+若輸入為 $x(t) = e^{j\nu t}$，則輸出為：
+$$y(t) = e^{j\nu t} \cdot \frac{1}{1 + j\nu RC}$$ 
