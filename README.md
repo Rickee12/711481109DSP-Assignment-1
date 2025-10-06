@@ -100,22 +100,86 @@ $$
 y(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t} - \frac{1}{1 + j\Omega RC} e^{-t/RC}, \quad t \ge 0
 $$
 
----
+## Step 5: Steady-State and Transient Response
 
-Step 5: Steady-State and Transient Response
-
-- Steady-State Response (穩態解)  
+- **Steady-State Response (穩態解)**
 $$
 y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}
 $$
 
-- Transient Response (暫態解)  
+- **Transient Response (暫態解)**
 $$
 y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}
 $$
 
-
 ###  Problem 3
+
+Given
+* Input signal: $x(t) = e^{j\Omega t}$ (sinusoidal)  
+* Components: $R = 1000 \Omega$, $C = \frac{1}{2\pi \cdot 400 \cdot 1000}$ F  
+* Angular frequency: $\Omega = 2 \pi f$  
+
+---
+
+Step 1: Transfer Function
+
+RC 低通濾波器傳遞函數：
+
+$$
+H(\Omega) = \frac{1}{1 + RC j \Omega}
+$$
+
+
+---
+
+Step 2: Frequency Cases
+
+Case 1: $f = 100$ Hz
+* 計算 $RC \Omega = f/400 = 0.25$
+* 傳遞函數：
+$$
+H(\Omega) = \frac{1}{1 + j0.25} = \frac{16}{17} - j\frac{4}{17}
+$$
+* 幅值與相位：
+$$
+|H| \approx 0.970, \quad \angle H \approx -14.04^\circ
+$$
+* 輸出信號：
+$$
+y(t) \approx 0.970 e^{j(200\pi t - 14.04^\circ)}
+$$
+
+Case 2: $f = 400$ Hz (Cutoff)
+* $RC \Omega = 1$  
+* 傳遞函數：
+$$
+H(\Omega) = \frac{1}{1 + j} = \frac{1}{2} - j \frac{1}{2}
+$$
+* 幅值與相位：
+$$
+|H| \approx 0.707, \quad \angle H = -45^\circ
+$$
+* 輸出信號：
+$$
+y(t) \approx 0.707 e^{j(800\pi t - 45^\circ)}
+$$
+
+Case 3: $f = 3000$ Hz
+* $RC \Omega = 3000/400 = 7.5$  
+* 傳遞函數：
+$$
+H(\Omega) = \frac{1}{1 + j7.5} = \frac{4}{229} - j \frac{30}{229}
+$$
+* 幅值與相位：
+$$
+|H| \approx 0.132, \quad \angle H \approx -82.41^\circ
+$$
+* 輸出信號：
+$$
+y(t) \approx 0.132 e^{j(6000\pi t - 82.41^\circ)}
+$$
+
+---
 ###  Problem 4
 ###  Problem 5
 ###  Problem 6
