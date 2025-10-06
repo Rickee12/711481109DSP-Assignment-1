@@ -43,36 +43,34 @@ $$y(t) = e^{j\Omega t} \cdot \frac{1}{1 + j\Omega RC}$$
 
 # Problem 2: System Analysis with Laplace Transform
 
+# Problem 2: System Analysis with Laplace Transform
+
 Given
 * Input signal: $x(t) = e^{j\Omega t} u(t)$  
 * System time constant: $\tau = RC$  
 
 ---
 
-Step 1: Laplace Transform of Input and System Function
+Step 1: Laplace Transform
 
-輸入與系統函數轉換到 s-domain：
-
-$$
-\mathcal{L}\{x(t)\} = X(s) = \frac{1}{s - j\Omega}
-$$
+將輸入與系統函數轉換到 s-domain：
 
 $$
-\mathcal{L}\{h(t)\} = H(s) = \frac{1}{1 + \tau s} \quad \text
+X(s) = \frac{1}{s - j\Omega}, \quad
+H(s) = \frac{1}{1 + \tau s}
 $$
+
 
 
 ---
 
 Step 2: Output in s-domain
 
-輸出 $Y(s)$ 為輸入與系統函數的乘積：
+輸出為輸入與系統函數的乘積：
 
 $$
-Y(s) = X(s) \cdot H(s) = \frac{1}{s - j\Omega} \cdot \frac{1}{1 + \tau s} = \frac{1}{\tau} \cdot \frac{1}{s - j\Omega} \cdot \frac{1}{s + 1/\tau}
+Y(s) = X(s) \cdot H(s) = \frac{1}{\tau} \cdot \frac{1}{s - j\Omega} \cdot \frac{1}{s + 1/\tau}
 $$
-
-
 
 ---
 
@@ -84,34 +82,22 @@ $$
 Y(s) = \frac{1}{\tau} \left( \frac{A}{s - j\Omega} + \frac{B}{s + 1/\tau} \right)
 $$
 
-### Residues
-- **A (對應輸入極點 $s=j\Omega$)**：
+係數：
 $$
-A = \frac{\tau}{1 + j\Omega \tau}
-$$
-- **B (對應系統極點 $s=-1/\tau$)**：
-$$
+A = \frac{\tau}{1 + j\Omega \tau}, \quad
 B = -\frac{\tau}{1 + j\Omega \tau}
 $$
 
-代回後：
-
+代回：
 $$
 Y(s) = \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s - j\Omega} - \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s + 1/\tau}
 $$
-
 
 ---
 
 Step 4: Inverse Laplace Transform
 
-使用 $\mathcal{L}^{-1}\left\{\frac{1}{s-a}\right\} = e^{at} u(t)$：
-
-$$
-y(t) = \frac{1}{1 + j\Omega \tau} e^{j\Omega t} u(t) - \frac{1}{1 + j\Omega \tau} e^{-t/\tau} u(t), \quad t \ge 0
-$$
-
-代入 $\tau = RC$：
+將每項反 Laplace：
 
 $$
 y(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t} - \frac{1}{1 + j\Omega RC} e^{-t/RC}, \quad t \ge 0
@@ -119,21 +105,17 @@ $$
 
 ---
 
- Step 5: Steady-State and Transient Response
+Step 5: Steady-State and Transient Response
 
- 1️⃣ 穩態解 (Steady-State Response)
+- Steady-State Response (穩態解)  
 $$
-\color{blue}{y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}}
+y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}
 $$
 
-
- 2️⃣ 暫態解 (Transient Response)
+- Transient Response (暫態解)  
 $$
-\color{red}{y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}}
+y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}
 $$
-- 對應系統極點 $s = -1/RC$  
-- 隨時間衰減至 0  
-- 代表系統初始調整與暫態行為  
 
 
 ###  Problem 3
