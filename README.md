@@ -403,32 +403,22 @@ $$
 
 ###  Problem 7  RC電路低通濾波器(以C語言撰寫)
 
-WAV RC 濾波程式 — 目錄版本
-目錄
+## 目錄
 
-標頭與常數定義
+1. 檔案與包含檔（`#include`）
+2. 變數與常數定義（`#define`）
+3. `WAVHeader` 結構（注意事項）
+4. `extract_frequency_from_filename`：從檔名擷取測試頻率
+5. `print_simulation_analysis`：理論與模擬分析逐行說明
+6. `filter_audio`：濾波核心（單聲道 / 雙聲道）逐行說明
+7. `main`：整體流程與重要檢查點
+8. 理論推導與數學關係（為什麼 a, b 如此）
+9. 常見問題、潛在 bug 與改善建議
+10. 編譯、執行範例
+11. 輸出結果
+---
 
-WAV 檔案結構定義
-
-檢查命令列參數
-
-開啟輸入檔案
-
-讀取 WAV header
-
-讀取 PCM 音訊資料
-
-從檔名解析濾波 cutoff frequency
-
-設定 RC 濾波參數
-
-初始化濾波暫存
-
-RC 低通濾波處理
-
-寫出濾波後 WAV
-
-// 1. 標頭與常數定義
+## 1. 標頭與常數定義
 #include <stdio.h>
 #include <math.h>
 #include <memory.h>
@@ -443,7 +433,8 @@ RC 低通濾波處理
 
 定義圓周率 PI
 
-// 2. WAV檔案結構定義
+## 2. WAV檔案結構定義
+// c
 typedef struct {
     char chunkID[4];     
     unsigned int chunkSize;
@@ -471,9 +462,9 @@ typedef struct {
 
 定義 WAV 檔案結構，用於讀寫 header 與資料區
 
-int main(int argc, char *argv[])
+## 3. 檢查命令列參數
+// int main(int argc, char *argv[])
 {
-    // 3. 檢查命令列參數
     if(argc != 3){
         printf("Usage: %s in_fn out_fn\n", argv[0]);
         return 1;
