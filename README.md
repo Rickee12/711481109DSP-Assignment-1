@@ -158,11 +158,13 @@ Case 2: $f = 400$ Hz
  $$
  
 計算幅值與相位：
+
  $$
  |H| \approx 0.707, \quad \angle H = -45^\circ
  $$
  
 計算輸出信號：
+
  $$
  y(t) \approx 0.707 e^{j(800\pi t - 45^\circ)}
  $$
@@ -171,16 +173,19 @@ Case 2: $f = 400$ Hz
 
 Case 3: $f = 3000$ Hz
 計算傳遞函數：
+
  $$
  H(\Omega) = \frac{1}{1 + j7.5} = \frac{4}{229} - j \frac{30}{229}
  $$
  
 計算幅值與相位：
+
  $$
  |H| \approx 0.132, \quad \angle H \approx -82.41^\circ
  $$
  
 計算輸出信號：
+
  $$
  y(t) \approx 0.132 e^{j(6000\pi t - 82.41^\circ)}
  $$
