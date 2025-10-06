@@ -652,3 +652,9 @@ int main(int argc, char *argv[])
 開啟輸出檔案並寫入 header 與濾波後音訊
 
 釋放記憶體並結束程式
+
+
+### **濾波結果**
+
+以下圖表展示了輸入的 sine/cosine wave（濾波前）和經過 RC 低通濾波器處理後（濾波後）的波形。
+
