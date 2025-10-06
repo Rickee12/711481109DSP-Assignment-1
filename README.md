@@ -384,16 +384,19 @@ Final Response \(y[n]\)
 將 Y(z) 的兩項進行 Z 反變換：
 
 穩態部分：
+
 $$
 y_{ss}[n] = \frac{\tau}{\tau + RC (1-e^{-j\omega})} \, e^{j\omega n} \, u[n]
 $$
 
 暫態部分：
+
 $$
 y_{tr}[n] = \frac{1}{1 - e^{j\omega} (1+\frac{\tau}{RC})} \left( \frac{RC}{\tau+RC} \right)^n u[n]
 $$
 
 最終完整響應：
+
 $$
 y[n] = y_{ss}[n] + y_{tr}[n]
 $$
