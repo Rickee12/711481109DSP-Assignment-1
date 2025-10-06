@@ -6,10 +6,9 @@
 ---
 
 ## **手寫作業 (Problems 1-6)**
-此部分包含多個手寫數學，內容以LaTeX方法來編寫
+此部分包含多個手寫數學且以LaTeX方法來編寫
 
-
-###  Problem 1 
+###  Problem 1
 
 微分方程推導
 根據 KVL（Kirchhoff 電壓定律）：
@@ -19,8 +18,6 @@ $$x(t) = R \cdot I(t) + y(t)$$
 
 代入得到：
 $$x(t) = RC \frac{dy(t)}{dt} + y(t)$$  
-
-
 
 ---
 
@@ -56,7 +53,6 @@ $$
 X(s) = \frac{1}{s - j\Omega}, \quad
 H(s) = \frac{1}{1 + \tau s}
 $$
-
 
 
 ---
@@ -190,8 +186,94 @@ Case 3: $f = 3000$ Hz
  y(t) \approx 0.132 e^{j(6000\pi t - 82.41^\circ)}
  $$
 
-![手寫作業](figure/Screenshot_20251006_153105_Samsung_Notes.jpg)
-
 ###  Problem 4
+
+### Problem 4
+
+System Definition and Parameters
+ 設定輸入 $x(t) = e^{j\Omega t}$  
+ 設定 RC 元件參數 $R = 1000 \, \Omega, \ C = \frac{1}{2\pi \cdot 400 \cdot 1000} \, F$  
+ 計算時間常數 $RC = \frac{1}{800\pi}$  
+
+總輸出方程式：
+
+ $$
+ y(t) = \frac{1}{1+j\Omega RC} (e^{j\Omega t} - e^{-t/RC}), \quad t \ge 0
+ $$
+
+---
+
+Case 1: $f = 100$ Hz
+ 計算角頻率：
+
+ $$
+ \Omega = 2\pi f = 2\pi (100) = 200\pi \, \text{rad/s}
+ $$
+ 
+ 計算傳遞函數：
+
+ $$
+ 1+j\Omega RC = 1 + j(200\pi)\left(\frac{1}{800\pi}\right) = 1 + j\frac{1}{4} = 1.031 e^{j14.04^\circ}
+ $$
+ $$
+ \frac{1}{1+j\Omega RC} \approx 0.970 e^{-j14.04^\circ}
+ $$
+ 
+ 計算輸出信號：
+
+ $$
+ y(t) \approx 0.970 e^{-j14.04^\circ} (e^{j200\pi t} - e^{-800\pi t})
+ $$
+
+---
+
+Case 2: $f = 400$ Hz
+ 計算角頻率：
+
+ $$
+ \Omega = 2\pi f = 2\pi (400) = 800\pi \, \text{rad/s}
+ $$
+ 
+ 計算傳遞函數：
+
+ $$
+ 1+j\Omega RC = 1 + j(800\pi)\left(\frac{1}{800\pi}\right) = 1 + j1 = \sqrt{2} e^{j45^\circ} \approx 1.414 e^{j45^\circ}
+ $$
+ $$
+ \frac{1}{1+j\Omega RC} \approx 0.707 e^{-j45^\circ}
+ $$
+ 
+ 計算輸出信號：
+
+ $$
+ y(t) \approx 0.707 e^{-j45^\circ} (e^{j800\pi t} - e^{-800\pi t})
+ $$
+
+---
+
+Case 3: $f = 3000$ Hz
+ 計算角頻率：
+
+ $$
+ \Omega = 2\pi f = 2\pi (3000) = 6000\pi \, \text{rad/s}
+ $$
+ 
+ 計算傳遞函數：
+
+ $$
+ 1+j\Omega RC = 1 + j(6000\pi)\left(\frac{1}{800\pi}\right) = 1 + j7.5 = 7.566 e^{j82.41^\circ}
+ $$
+ $$
+ \frac{1}{1+j\Omega RC} \approx 0.132 e^{-j82.41^\circ}
+ $$
+ 
+ 計算輸出信號：
+
+ $$
+ y(t) \approx 0.132 e^{-j82.41^\circ} (e^{j6000\pi t} - e^{-800\pi t})
+ $$
+
 ###  Problem 5
+
 ###  Problem 6
+
