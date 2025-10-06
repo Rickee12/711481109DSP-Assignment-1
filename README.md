@@ -90,6 +90,7 @@ $$
 Y(s) = \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s - j\Omega} - \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s + 1/\tau}
 $$
 
+
 ---
 
 Step 4: Inverse Laplace Transform
@@ -106,6 +107,7 @@ Step 5: Steady-State and Transient Response
 $$
 y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}
 $$
+
 
 - Transient Response (暫態解)
 $$
