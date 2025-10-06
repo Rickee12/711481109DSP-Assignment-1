@@ -81,12 +81,12 @@ $$
 
 係數：
 
-$A = \frac{\tau}{1 + j\Omega \tau}, \quad$
-$B = -\frac{\tau}{1 + j\Omega \tau}$
+$$A = \frac{\tau}{1 + j\Omega \tau}, \quad$$
+$$B = -\frac{\tau}{1 + j\Omega \tau}$$
 
 代回：
 
-$Y(s) = \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s - j\Omega} - \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s + 1/\tau}$
+$$Y(s) = \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s - j\Omega} - \frac{1}{1 + j\Omega \tau} \cdot \frac{1}{s + 1/\tau}$$
 
 
 ---
@@ -95,22 +95,21 @@ Step 4: Inverse Laplace Transform
 
 將每項反 Laplace：
 
-$$
-y(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t} - \frac{1}{1 + j\Omega RC} e^{-t/RC}, \quad t \ge 0
-$$
+$$y(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t} - \frac{1}{1 + j\Omega RC} e^{-t/RC}, \quad t \ge 0$$
+
 
 Step 5: Steady-State and Transient Response
 
 - Steady-State Response (穩態解)
   
-$y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}$
+$$y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}$$
 
 
 
 - Transient Response (暫態解)
-$$
-y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}
-$$
+
+$$y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}$$
+
 
 ###  Problem 3
 
@@ -137,9 +136,9 @@ Step 2: Frequency Cases
 Case 1: $f = 100$ Hz
 * 計算 $RC \Omega = f/400 = 0.25$
 * 傳遞函數：
-$$
-H(\Omega) = \frac{1}{1 + j0.25} = \frac{16}{17} - j\frac{4}{17}
-$$
+
+$$H(\Omega) = \frac{1}{1 + j0.25} = \frac{16}{17} - j\frac{4}{17}$$
+
 * 幅值與相位：
 $$
 |H| \approx 0.970, \quad \angle H \approx -14.04^\circ
