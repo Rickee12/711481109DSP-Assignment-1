@@ -403,8 +403,32 @@ $$
 
 ###  Problem 7  RC電路低通濾波器(以C語言撰寫)
 
+WAV RC 濾波程式 — 目錄版本
+目錄
 
-程式分段與說明
+標頭與常數定義
+
+WAV 檔案結構定義
+
+檢查命令列參數
+
+開啟輸入檔案
+
+讀取 WAV header
+
+讀取 PCM 音訊資料
+
+從檔名解析濾波 cutoff frequency
+
+設定 RC 濾波參數
+
+初始化濾波暫存
+
+RC 低通濾波處理
+
+寫出濾波後 WAV
+
+// 1. 標頭與常數定義
 #include <stdio.h>
 #include <math.h>
 #include <memory.h>
@@ -413,20 +437,19 @@ $$
 #define PI 3.14159265359
 
 
-段 1：標頭與常數定義
+說明：
 
-引入檔案操作、數學運算、記憶體操作、字串處理標頭
+載入檔案、數學、記憶體、字串操作標頭
 
 定義圓周率 PI
 
-// WAV檔案主標頭
+// 2. WAV檔案結構定義
 typedef struct {
-    char chunkID[4];     // "RIFF"
+    char chunkID[4];     
     unsigned int chunkSize;
-    char format[4];      // "WAVE"
+    char format[4];      
 } RIFFHeader;
 
-// WAV格式資訊
 typedef struct {
     char subchunk1ID[4]; 
     unsigned int subchunk1Size; 
@@ -438,31 +461,32 @@ typedef struct {
     unsigned short bitsPerSample;
 } FmtSubchunk;
 
-// WAV音訊資料區
 typedef struct {
-    char subchunk2ID[4]; // "data"
+    char subchunk2ID[4]; 
     unsigned int subchunk2Size;
 } DataSubchunk;
 
 
-段 2：定義 WAV 結構
+說明：
 
-用於讀寫 WAV 檔案的 header 與資料區
+定義 WAV 檔案結構，用於讀寫 header 與資料區
 
 int main(int argc, char *argv[])
 {
+    // 3. 檢查命令列參數
     if(argc != 3){
         printf("Usage: %s in_fn out_fn\n", argv[0]);
         return 1;
     }
 
 
-段 3：檢查參數
+說明：
 
 確保使用者提供輸入檔名和輸出檔名
 
-    char *in_fn = argv[1];   // 輸入檔名
-    char *out_fn = argv[2];  // 輸出檔名
+    // 4. 開啟輸入檔案
+    char *in_fn = argv[1];   
+    char *out_fn = argv[2];  
 
     FILE *fp = fopen(in_fn, "rb");  // 以二進位模式開啟輸入 WAV
     if(!fp){
@@ -471,10 +495,11 @@ int main(int argc, char *argv[])
     }
 
 
-段 4：開啟輸入檔
+說明：
 
-若開檔失敗則退出
+開啟 WAV 檔案，如果失敗則退出
 
+    // 5. 讀取 WAV header
     RIFFHeader riff;
     FmtSubchunk fmt;
     DataSubchunk data;
@@ -484,12 +509,11 @@ int main(int argc, char *argv[])
     fread(&data, sizeof(DataSubchunk), 1, fp);
 
 
-段 5：讀取 WAV header
+說明：
 
-將 RIFF、fmt、data header 讀入結構
+讀取 WAV header，取得取樣率、聲道數、位元深度等資訊
 
-方便後續取得取樣率、聲道數、位元深度
-
+    // 6. 讀取 PCM 音訊資料
     int fs = fmt.sampleRate;
     int bitsPerSample = fmt.bitsPerSample;
     int numChannels = fmt.numChannels;
@@ -500,16 +524,16 @@ int main(int argc, char *argv[])
     fclose(fp);
 
 
-段 6：讀取 PCM 音訊資料
+說明：
 
 計算總取樣數 N
 
-分配陣列存放音訊資料
+分配記憶體存放 PCM 資料
 
-關閉輸入檔案
+讀入資料並關閉檔案
 
-    // 從檔名抓第二個 f 後的數字作為濾波截止頻率
-    int f = 0;
+    // 7. 從檔名解析 cutoff frequency
+    int f = 0;  // cutoff frequency
     char *first_f = strchr(in_fn, 'f');
     if(first_f != NULL){
         char *second_f = strchr(first_f + 1, 'f');
@@ -524,34 +548,37 @@ int main(int argc, char *argv[])
     }
 
 
-段 7：解析檔名取濾波截止頻率
+說明：
 
-例如檔名 audio_f400_out.wav → f = 400 Hz
+解析檔名，例如 audio_f400_out.wav → f = 400 Hz
 
 若抓不到數字，程式退出
 
+    // 8. 設定 RC 濾波參數
     double T = 1.0/fs;   // 取樣週期
-    double R = 1000;      
-    double C = 1.0/(2*PI*400*1000); 
+    double R = 1000;     
+    double C = 1.0/(2*PI*f*1000);  // cutoff frequency 自動使用 f
     double a = R*C/(R*C+T);
 
 
-段 8：設定 RC 濾波參數
+說明：
 
-計算一階 RC 濾波係數 a
+計算 RC 濾波係數 a
 
-T 為取樣週期，R、C 為濾波器參數
+用於離散一階 RC 濾波公式
 
+    // 9. 初始化濾波暫存
     double out_l = 0, out_r = 0;
     size_t total_samples = data.subchunk2Size / (numChannels * bitsPerSample / 8);
 
 
-段 9：初始化濾波變數
+說明：
 
 左右聲道濾波暫存
 
-計算總取樣數，用於迴圈處理
+計算總取樣數
 
+    // 10. RC 低通濾波處理
     for (size_t n = 0; n < total_samples; n+=2){
         double in_L = stereo[n];       
         double in_R = stereo[n+1];     
@@ -562,6 +589,7 @@ T 為取樣週期，R、C 為濾波器參數
         stereo[n] = (short)round(out_l);
         stereo[n+1] = (short)round(out_r);
 
+        // 限幅避免溢位
         if (stereo[n] > 32767) stereo[n] = 32767;
         if (stereo[n] < -32768) stereo[n] = -32768;
         if (stereo[n+1] > 32767) stereo[n+1] = 32767;
@@ -569,12 +597,13 @@ T 為取樣週期，R、C 為濾波器參數
     }
 
 
-段 10：RC 低通濾波處理
+說明：
 
-對每個取樣做濾波
+使用離散 RC 公式對左右聲道濾波
 
-限幅避免 16-bit PCM 溢位
+限幅在 16-bit PCM 範圍內
 
+    // 11. 寫出濾波後 WAV
     fp = fopen(out_fn, "wb");
     if(!fp){ fprintf(stderr, "Cannot save %s\n", out_fn); exit(1); }
 
@@ -590,36 +619,8 @@ T 為取樣週期，R、C 為濾波器參數
 }
 
 
-段 11：寫出濾波後 WAV
+說明：
 
-開啟輸出檔案
+開啟輸出檔案並寫入 header 與濾波後音訊
 
-寫入 WAV header 與濾波後資料
-
-釋放記憶體、關閉檔案
-
-程式結束
-
-✅ 總流程順序：
-
-載入標頭檔與常數
-
-定義 WAV 結構
-
-檢查輸入參數
-
-開啟輸入檔
-
-讀取 WAV header
-
-讀取 PCM 音訊資料
-
-從檔名解析 cutoff frequency
-
-計算 RC 濾波係數
-
-初始化濾波變數
-
-對音訊資料做 RC 低通濾波
-
-寫出濾波後 WAV，釋放記憶體並結束
+釋放記憶體並結束程式
