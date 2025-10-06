@@ -100,14 +100,14 @@ $$
 y(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t} - \frac{1}{1 + j\Omega RC} e^{-t/RC}, \quad t \ge 0
 $$
 
-## Step 5: Steady-State and Transient Response
+Step 5: Steady-State and Transient Response
 
-- **Steady-State Response (穩態解)**
+- Steady-State Response (穩態解)
 $$
 y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}
 $$
 
-- **Transient Response (暫態解)**
+- Transient Response (暫態解)
 $$
 y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}
 $$
