@@ -113,44 +113,42 @@ $$y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}$$
 
 ###  Problem 3
 
-Given
-* Input signal: $x(t) = e^{j\Omega t}$ (sinusoidal)  
-* Components: $R = 1000 \Omega$, $C = \frac{1}{2\pi \cdot 400 \cdot 1000}$ F  
-* Angular frequency: $\Omega = 2 \pi f$  
+若 $$x(t)=e^{j\Omega t}$$
 
----
+求 $$y(t)$$
 
-Step 1: Transfer Function
+$從Problem 1 得$
 
-RC 低通濾波器傳遞函數：
+$$H(\Omega)=\frac{1}{1+j \Omega RC},y(t)=\frac{1}{1+j \Omega RC}e^{j\Omega t}$$
 
-$$
-H(\Omega) = \frac{1}{1 + RC j \Omega}
-$$
+$題目給的參數$
 
+$$R=1000\Omega , C=\frac{1}{2\pi\times400\times1000},\Omega=2\pi f$$
+$代入$
 
----
+$$j\Omega RC=\frac{f}{400}j$$
 
-Step 2: Frequency Cases
+$example :$ $f=100Hz$
 
-Case 1: $f = 100$ Hz
-* 計算 $RC \Omega = f/400 = 0.25$
-* 傳遞函數：$$H(\Omega) = \frac{1}{1 + j0.25} = \frac{16}{17} - j\frac{4}{17}$$
-* 幅值與相位：$$|H| \approx 0.970, \quad \angle H \approx -14.04^\circ$$
-* 輸出信號：$$y(t) \approx 0.970 e^{j(200\pi t - 14.04^\circ)}$$
+$$H(\Omega)=\frac{1}{1+\frac{100}{400}j}=\frac{1}{1+0.25j}$$
 
-Case 2: $f = 400$ Hz (Cutoff)
-* $RC \Omega = 1$  
-* 傳遞函數：$$H(\Omega) = \frac{1}{1 + j} = \frac{1}{2} - j \frac{1}{2}$$
-* 幅值與相位：$$|H| \approx 0.707, \quad \angle H = -45^\circ$$
-* 輸出信號：$$y(t) \approx 0.707 e^{j(800\pi t - 45^\circ)}$$
+$$|H(\Omega)|=\frac{1}{\sqrt{1^2+0.25^2}}\approx0.9701$$
 
-Case 3: $f = 3000$ Hz
-* $RC \Omega = 3000/400 = 7.5$  
-* 傳遞函數：$$H(\Omega) = \frac{1}{1 + j7.5} = \frac{4}{229} - j \frac{30}{229}$$
-* 幅值與相位：$$|H| \approx 0.132, \quad \angle H \approx -82.41^\circ$$
-* 輸出信號：$$y(t) \approx 0.132 e^{j(6000\pi t - 82.41^\circ)}$$
+$$\angle H(\Omega)=-arctan(\frac{0.25}{1})\approx-14.04$$
 
+$So:$
+
+$$H(\Omega)=\approx0.9701e^{-j14.04^\circ}$$
+
+$y(t):$
+
+$$\Omega=2\pi\times10=200\pi\      rad/s$$
+
+$$y(t)=(0.9701e^{-j14.04^\circ})e^{j(200\pi t)}$$
+
+$$ =0.9701e^{j(200\pi t-14.04^\circ)}$$
+
+$$ 以此類推f = 400,3000Hz照著上述的運算邏輯便能得到結果 $$
 ###  Problem 4
 ###  Problem 5
 ###  Problem 6
