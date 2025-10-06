@@ -41,9 +41,6 @@ $$y(t) = e^{j\Omega t} \cdot \frac{1}{1 + j\Omega RC}$$
 
 ###  Problem 2 
 
-# Problem 2: System Analysis with Laplace Transform
-
-# Problem 2: System Analysis with Laplace Transform
 
 Given
 * Input signal: $x(t) = e^{j\Omega t} u(t)$  
