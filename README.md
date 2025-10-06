@@ -190,7 +190,7 @@ Case 3: $f = 3000$ Hz
  y(t) \approx 0.132 e^{j(6000\pi t - 82.41^\circ)}
  $$
 
-
+![手寫作業](figure/Screenshot_20251006_153105_Samsung_Notes.jpg)
 
 ###  Problem 4
 ###  Problem 5
