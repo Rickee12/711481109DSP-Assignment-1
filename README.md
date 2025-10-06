@@ -327,3 +327,76 @@ Steady-State Response
 
 ###  Problem 6
 
+System Definition
+ 設定差分方程：
+ 
+ $$
+ y[n] = \frac{RC}{R\tau+RC} y[n-1] + \frac{\tau}{R\tau+RC} x[n]
+ $$
+
+ 計算系統傳遞函數：
+ 
+ $$
+ H(z) = \frac{\tau}{R\tau+RC - RC z^{-1}} = \frac{1}{1 + \frac{RC}{\tau} (1-z^{-1})}
+ $$
+
+---
+
+Input Signal
+ 設定輸入：
+ 
+ $$
+ x[n] = e^{j\omega n} u[n]
+ $$
+
+ Z 轉換：
+ 
+ $$
+ X(z) = \frac{1}{1 - e^{j\omega} z^{-1}}
+ $$
+
+---
+
+Output Signal in Z-domain
+ 系統輸出：
+ 
+ $$
+ Y(z) = X(z) H(z) = \frac{1}{1 - e^{j\omega} z^{-1}} \cdot \frac{\tau}{\tau + RC (1-z^{-1})}
+ $$
+
+---
+
+Partial Fraction Expansion
+ 部分分式展開：
+ 
+ $$
+ Y(z) = \frac{A}{1 - e^{j\omega} z^{-1}} + \frac{B'}{1 - \frac{RC}{\tau+RC} z^{-1}}
+ $$
+
+ 係數：
+ 
+ $$
+ A = H(e^{j\omega}) = \frac{\tau}{\tau + RC (1-e^{-j\omega})}
+ $$
+
+ 逆 Z 變換：
+ 
+ $$
+ Z^{-1} \left\{ \frac{B'}{1 - \frac{RC}{\tau+RC} z^{-1}} \right\} = B' \left( \frac{RC}{\tau+RC} \right)^n u[n]
+ $$
+
+---
+
+Steady-State and Transient Response
+ 系統穩態與暫態響應：
+ 
+ $$
+ y[n] = \underbrace{A e^{j\omega n} u[n]}_{\text{穩態 (Steady-state)}} + \underbrace{B' \left( \frac{RC}{\tau+RC} \right)^n u[n]}_{\text{暫態 (Transient)}}
+ $$
+
+ 最終簡化結果：
+ 
+ $$
+ y[n] = \frac{\tau}{\tau + RC (1-e^{-j\omega})} e^{j\omega n} u[n] + \frac{\tau}{\tau + RC (1-e^{-j\omega})} \left( \frac{RC}{\tau+RC} \right)^n u[n]
+ $$
+
