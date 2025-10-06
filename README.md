@@ -6,11 +6,12 @@
 ---
 
 ## **手寫作業 (Problems 1-6)**
-此部分包含手寫算式的圖檔，手寫的內容也有以LaTeX方法來編寫
+此部分包含多個手寫數學，內容以LaTeX方法來編寫
 
-###  Problem 1 - LaTeX
 
-### 微分方程推導
+###  Problem 1 
+
+微分方程推導
 根據 KVL（Kirchhoff 電壓定律）：
 $$x(t) = R \cdot I(t) + y(t)$$  
 又因為 $I(t) = C \frac{dy(t)}{dt}$，代入得到：
@@ -20,16 +21,23 @@ $$x(t) = RC \frac{dy(t)}{dt} + y(t)$$
 
 ---
 
-### 頻率響應
+頻率響應
 對上式進行傅立葉轉換：
-$$X(\nu) = Y(\nu)(1 + j\nu RC)$$  
+$$X(\omega) = Y(\omega)(1 + j\omega RC)$$  
 因此：
-$$H(\nu) = \frac{Y(\nu)}{X(\nu)} = \frac{1}{1 + j\nu RC}$$  
+$$H(\omega) = \frac{Y(\omega)}{X(\omega)} = \frac{1}{1 + j\omega RC}$$  
 
-此為 RC 電路的頻率響應，為**低通濾波器**特性。
+此為 RC 電路的頻率響應，為低通濾波器。
 
 ---
 
-### 穩態輸出
-若輸入為 $x(t) = e^{j\nu t}$，則輸出為：
-$$y(t) = e^{j\nu t} \cdot \frac{1}{1 + j\nu RC}$$ 
+穩態輸出
+若輸入為 $x(t) = e^{j\omega t}$，則輸出為：
+$$y(t) = e^{j\omega t} \cdot \frac{1}{1 + j\omega RC}$$  
+
+
+###  Problem 2 
+###  Problem 3
+###  Problem 4
+###  Problem 5
+###  Problem 6
