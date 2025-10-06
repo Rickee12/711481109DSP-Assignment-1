@@ -658,3 +658,57 @@ int main(int argc, char *argv[])
 
 以下圖表展示了輸入的 sine/cosine wave（濾波前）和經過 RC 低通濾波器處理後（濾波後）的波形。
 
+#### fs:4000Hz f:100Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs4000_f100](figure/fs4000_f100.png) | ![filtered_fs4000_f100](figure/filtered_fs4000_f100.png) |
+---
+
+#### fs:4000Hz f:400Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs4000_f400](figure/fs4000_f400.png) | ![filtered_fs4000_f400](figure/filtered_fs4000_f400.png) |
+---
+
+#### fs:4000Hz f:3000Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs4000_f3000](figure/fs4000_f3000.png) | ![filtered_fs4000_f3000](figure/filtered_fs4000_f3000.png) |
+---
+
+#### fs:8000Hz f:100Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs8000_f100](figure/fs8000_f100.png) | ![filtered_fs8000_f100](figure/filtered_fs8000_f100.png) |
+---
+
+#### fs:8000Hz f:400Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs8000_f400](figure/fs8000_f400.png) | ![filtered_fs8000_f400](figure/filtered_fs8000_f400.png) |
+---
+
+#### fs:8000Hz f:3000Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs8000_f3000](figure/fs8000_f3000.png) | ![filtered_fs8000_f3000](figure/filtered_fs8000_f3000.png) |
+---
+
+#### fs:16000Hz f:100Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs16000_f100](figure/fs16000_f100.png) | ![filtered_fs16000_f100](figure/filtered_fs16000_f100.png) |
+---
+
+#### fs:16000Hz f:400Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs16000_f400](figure/fs16000_f400.png) | ![filtered_fs16000_f400](figure/filtered_fs16000_f400.png) |
+---
+
+#### fs:16000Hz f:3000Hz
+| 濾波前波形圖 | 濾波後波形圖 |
+| :---: | :---: |
+| ![fs16000_f3000](figure/fs16000_f3000.png) | ![filtered_fs16000_f3000](figure/filtered_fs16000_f3000.png) |
+---
+
