@@ -327,45 +327,71 @@ Steady-State Response
 
 ###  Problem 6
 
-\section*{Problem 6: 離散時間系統的完整響應 (使用符號 A, B)}
 
-\text{系統傳遞函數: } H(z) = \frac{\tau}{\tau + RC (1-z^{-1})}
-\text{輸入 Z 轉換: } X(z) = \frac{1}{1 - e^{j\omega} z^{-1}}
+System Transfer Function
+ 設定系統傳遞函數：
+ 
+ $$
+ H(z) = \frac{\tau}{\tau + RC (1-z^{-1})}
+ $$
 
-\subsection*{輸出 Z 轉換與部分分式展開}
-\text{依照手稿格式:}
-$$
-Y(z) = \underbrace{\frac{A}{1 - e^{j\omega} z^{-1}}}_{\text{穩態}} + \underbrace{\frac{B}{\tau + RC (1-z^{-1})}}_{\text{暫態}}
-$$
+Input Signal Z-Transform
+ 輸入信號 Z 轉換：
+ 
+ $$
+ X(z) = \frac{1}{1 - e^{j\omega} z^{-1}}
+ $$
 
-\subsection*{係數計算}
+---
 
-\subsubsection*{1. 穩態項係數 A}
-$$
-A = Y(z) \cdot (1 - e^{j\omega} z^{-1}) \bigg|_{z^{-1} = e^{-j\omega}} = H(e^{j\omega})
-$$
-$$
-A = \frac{\tau}{\tau + RC (1-e^{-j\omega})}
-$$
+Output Z-Transform and Partial Fraction Expansion:
 
-\subsubsection*{2. 暫態項係數 B}
-\text{手稿中 B 的定義為 } B = X(z) \cdot \tau \bigg|_{z^{-1} = 1+\frac{\tau}{RC}}
-$$
-B = \frac{1}{1 - e^{j\omega} z^{-1}} \cdot \tau \bigg|_{z^{-1} = 1+\frac{\tau}{RC}}
-$$
-$$
-B = \frac{\tau}{1 - e^{j\omega} (1+\frac{\tau}{RC})}
-$$
+ 
+ $$
+ Y(z) = \underbrace{\frac{A}{1 - e^{j\omega} z^{-1}}}_{\text{穩態}} + \underbrace{\frac{B}{\tau + RC (1-z^{-1})}}_{\text{暫態}}
+ $$
 
-\subsection*{最終響應 y[n]}
-\text{將 } Y(z) \text{ 的兩項進行 Z 反轉換: }
-$$
-Z^{-1}\left\{ \frac{A}{1 - e^{j\omega} z^{-1}} \right\} = A e^{j\omega n} u[n]
-$$
-$$
-Z^{-1}\left\{ \frac{B}{\tau + RC (1-z^{-1})} \right\} = Z^{-1}\left\{ \frac{B/\tau}{1 - \frac{RC}{\tau+RC} z^{-1}} \right\} = \frac{B}{\tau} \left( \frac{RC}{\tau+RC} \right)^n u[n]
-$$
-\text{最終 } y[n] \text{ 的完整表達式:}
-$$
-y[n] = \underbrace{\frac{\tau}{\tau + RC (1-e^{-j\omega})} e^{j\omega n} u[n]}_{\text{穩態}} + \underbrace{\frac{\tau}{1 - e^{j\omega} (1+\frac{\tau}{RC})} \cdot \frac{1}{\tau} \left( \frac{RC}{\tau+RC} \right)^n u[n]}_{\text{暫態}} \quad \text{\# 終}
-$$
+---
+
+Coefficient Calculation
+
+1. Steady-State Coefficient \(A\)
+
+ $$
+ A = Y(z) \cdot (1 - e^{j\omega} z^{-1}) \Big|_{z^{-1} = e^{-j\omega}} = H(e^{j\omega})
+ $$
+ $$
+ A = \frac{\tau}{\tau + RC (1-e^{-j\omega})}
+ $$
+
+2. Transient Coefficient \(B\)
+
+
+ $$
+ B = X(z) \cdot \tau \Big|_{z^{-1} = 1+\frac{\tau}{RC}} 
+ $$
+ $$
+ B = \frac{1}{1 - e^{j\omega} z^{-1}} \cdot \tau \Big|_{z^{-1} = 1+\frac{\tau}{RC}}
+ $$
+ $$
+ B = \frac{\tau}{1 - e^{j\omega} (1+\frac{\tau}{RC})}
+ $$
+
+---
+
+Final Response \(y[n]\)
+
+ 將 Y(z) 的兩項進行 Z 反變換：
+ 
+ $$
+ Z^{-1}\left\{ \frac{A}{1 - e^{j\omega} z^{-1}} \right\} = A e^{j\omega n} u[n]
+ $$
+ $$
+ Z^{-1}\left\{ \frac{B}{\tau + RC (1-z^{-1})} \right\} = \frac{B}{\tau} \left( \frac{RC}{\tau+RC} \right)^n u[n]
+ $$
+
+ 最終結果：
+ 
+ $$
+ y[n] = \underbrace{\frac{\tau}{\tau + RC (1-e^{-j\omega})} e^{j\omega n} u[n]}_{\text{穩態}} + \underbrace{\frac{\tau}{1 - e^{j\omega} (1+\frac{\tau}{RC})} \cdot \frac{1}{\tau} \left( \frac{RC}{\tau+RC} \right)^n u[n]}_{\text{暫態}}
+ $$
