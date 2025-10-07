@@ -585,7 +585,7 @@ int main(int argc, char *argv[])
 根據資料大小計算樣本數 `N`，並配置記憶體以讀取所有取樣。  
 讀取完畢後關閉檔案。
 
-## 7. 從檔名解析 cutoff frequency
+## 6. 從檔名解析 cutoff frequency
 
 ```c
     int f = 0;  // cutoff frequency
@@ -610,7 +610,7 @@ int main(int argc, char *argv[])
 若解析失敗則輸出錯誤訊息並結束。
 
 
-## 8. 設定 RC 濾波參數
+## 7. 設定 RC 濾波參數
 
 ```c
     double T = 1.0/fs;   // 取樣週期
@@ -627,7 +627,7 @@ int main(int argc, char *argv[])
 - `C`：依頻率計算電容值。
 - `a`：離散化濾波係數。
 
-## 9. 初始化濾波暫存
+## 8. 初始化濾波暫存
 
 ```c
     double out_l = 0, out_r = 0;
@@ -642,7 +642,7 @@ int main(int argc, char *argv[])
 - `total_samples`：總取樣數 (每個通道的樣本數)，用於迴圈處理整個音訊資料。
 
 
-## 10. RC 低通濾波處理
+## 9. RC 低通濾波處理
 
 ```c
     for (size_t n = 0; n < total_samples; n+=2){
@@ -678,7 +678,7 @@ RC 低通濾波處理迴圈：
 - 限幅 (clipping)：確保輸出值不超過 16-bit PCM 的範圍 [-32768, 32767]，避免溢位。
 
 
-## 11. 寫出濾波後 WAV
+## 10. 寫出濾波後 WAV
 
 ```c
     fp = fopen(out_fn, "wb");
