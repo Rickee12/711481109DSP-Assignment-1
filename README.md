@@ -6,9 +6,13 @@
 ---
 
 ## **手寫作業 (Problems 1-6)**
-此部分包含多個手寫數學且以LaTeX方法來編寫
+此部分包含多個手寫圖檔以及以LaTeX方法來編寫的算式
 
-###  Problem 1
+###  Problem 1 - 手寫
+![手寫](figure/Screenshot_20251006_153105_Samsung_Notes.jpg)
+
+
+###  Problem 1 - LaTeX
 
 微分方程推導
 根據 KVL（Kirchhoff 電壓定律）：
@@ -36,8 +40,10 @@ $$H(\Omega) = \frac{Y(\Omega)}{X(\Omega)} = \frac{1}{1 + j\Omega RC}$$
 $$y(t) = e^{j\Omega t} \cdot \frac{1}{1 + j\Omega RC}$$  
 
 
-###  Problem 2 
+###  Problem 2 - 手寫
+![手寫](figure/Screenshot_20251006_153105_Samsung_Notes.jpg)
 
+###  Problem 2 - LaTeX
 
 Given
 * Input signal: $x(t) = e^{j\Omega t} u(t)$  
@@ -107,7 +113,10 @@ $$y_{ss}(t) = \frac{1}{1 + j\Omega RC} e^{j\Omega t}$$
 $$y_{tr}(t) = - \frac{1}{1 + j\Omega RC} e^{-t/RC}$$
 
 
-###  Problem 3
+###  Problem 3 - 手寫
+![手寫](figure/Screenshot_20251006_153130_Samsung_Notes.jpg)
+
+###  Problem 3 - LaTeX
 
 System Definition and Parameters
  設定輸入 $x(t) = e^{j\omega t}$  
@@ -186,7 +195,11 @@ Case 3: $f = 3000$ Hz
  y(t) \approx 0.132 e^{j(6000\pi t - 82.41^\circ)}
  $$
 
-### Problem 4
+
+### Problem 4 - 手寫
+![手寫](figure/Screenshot_20251006_153204_Samsung_Notes.jpg)
+
+### Problem 4 - LaTeX
 
 System Definition and Parameters
  設定輸入 $x(t) = e^{j\Omega t}$  
@@ -270,8 +283,16 @@ Case 3: $f = 3000$ Hz
  $$
  y(t) \approx 0.132 e^{-j82.41^\circ} (e^{j6000\pi t} - e^{-800\pi t})
  $$
+ 
+###  Problem 5 - 手寫
 
-###  Problem 5
+![手寫](figure/Screenshot_20251006_160929_Samsung_Notes.jpg)
+
+![手寫](figure/Screenshot_20251006_160942_Samsung_Notes.jpg)
+
+![手寫](figure/Screenshot_20251006_160949_Samsung_Notes.jpg)
+
+###  Problem 5 - LaTeX
 
 System Definition and Parameters
  設定差分方程：
@@ -325,7 +346,13 @@ Steady-State Response
  y[n] = H(\omega) \cdot x[n] = \frac{1}{1 + \frac{1}{800\pi \tau} (1 - e^{-j\omega})} e^{j\omega n}
  $$
 
-###  Problem 6
+###  Problem 6 - 手寫
+
+![手寫](figure/Screenshot_20251006_161010_Samsung_Notes.jpg)
+
+![手寫](figure/Screenshot_20251006_161022_Samsung_Notes.jpg)
+
+###  Problem 6 - LaTeX
 
 
 System Transfer Function
@@ -411,21 +438,20 @@ $$
 
 3.檢查命令列參數
 
-4.開啟輸入檔案
+4.開啟與讀取 WAV 檔頭
 
-5.讀取 WAV header
+5.讀取 PCM 音訊資料
 
-6.讀取 PCM 音訊資料
+6.從檔名解析濾波 cutoff frequency
 
-7.從檔名解析濾波 cutoff frequency
+7.設定 RC 濾波參數
 
-8.設定 RC 濾波參數
+8.初始化濾波暫存
 
-9.初始化濾波暫存
+9.RC 低通濾波處理
 
-10.RC 低通濾波處理
+10.寫出濾波後 WAV
 
-11.寫出濾波後 WAV
 
 ---
 
@@ -440,12 +466,13 @@ $$
 #define PI 3.14159265359
 ```
 
+說明:
+引入必要的標頭檔與常數：
 
-說明：
-
-載入檔案、數學、記憶體、字串操作標頭
-
-定義圓周率 PI
+- `stdio.h`, `stdlib.h`：檔案操作與動態記憶體分配。
+- `math.h`：數學運算（例如 `round()`）。
+- `string.h`：字串搜尋與擷取頻率。
+- `PI`：供 RC 濾波公式使用。
 
 ## 2. WAV檔案結構定義
 
@@ -474,8 +501,14 @@ typedef struct {
 ```
 
 說明：
+這三個結構對應 WAV 檔案格式：
 
-定義 WAV 檔案結構，用於讀寫 header 與資料區
+1. `RIFFHeader`：WAV 主標頭，包含 `"RIFF"` 與 `"WAVE"` 標誌。
+2. `FmtSubchunk`：音訊格式資訊（取樣率、聲道數、位元深度等）。
+3. `DataSubchunk`：音訊資料段標頭，描述資料長度。
+
+
+
 
 ## 3. 檢查命令列參數
 
@@ -486,34 +519,33 @@ int main(int argc, char *argv[])
         printf("Usage: %s in_fn out_fn\n", argv[0]);
         return 1;
     }
+
+    char *in_fn = argv[1];   
+    char *out_fn = argv[2];  
+
+
+
 ```
 
 
 說明：
+確認執行時的輸入參數是否正確：
 
-確保使用者提供輸入檔名和輸出檔名
+- `in_fn`：輸入 WAV 檔案名稱。
+- `out_fn`：輸出 WAV 檔案名稱。
+- 若參數不足，程式會提示正確使用方式後結束。
 
-## 4. 開啟輸入檔案
+
+
+## 4. 開啟與讀取 WAV 檔頭
  
  ```c
-    char *in_fn = argv[1];   
-    char *out_fn = argv[2];  
-
     FILE *fp = fopen(in_fn, "rb");  // 以二進位模式開啟輸入 WAV
     if(!fp){
         fprintf(stderr, "Cannot open file %s\n", in_fn);
         return 1;
     }
-```
 
-
-說明：
-
-開啟 WAV 檔案，如果失敗則退出
-
-##  5. 讀取 WAV header
-
-```c
     RIFFHeader riff;
     FmtSubchunk fmt;
     DataSubchunk data;
@@ -523,11 +555,19 @@ int main(int argc, char *argv[])
     fread(&data, sizeof(DataSubchunk), 1, fp);
 ```
 
+
 說明：
+以二進位模式開啟 WAV 檔案，依序讀取：
 
-讀取 WAV header，取得取樣率、聲道數、位元深度等資訊
+- RIFF 標頭：確認檔案格式。
+- 格式資訊區（fmt chunk）。
+- 音訊資料區（data chunk）標頭。
 
-##  6. 讀取 PCM 音訊資料
+
+
+
+
+##  5. 讀取 PCM 音訊資料
 
 ```c
     int fs = fmt.sampleRate;
@@ -541,12 +581,9 @@ int main(int argc, char *argv[])
 ```
 
 說明：
-
-計算總取樣數 N
-
-分配記憶體存放 PCM 資料
-
-讀入資料並關閉檔案
+從 fmt 區段中取得取樣率、通道數、位元深度。  
+根據資料大小計算樣本數 `N`，並配置記憶體以讀取所有取樣。  
+讀取完畢後關閉檔案。
 
 ## 7. 從檔名解析 cutoff frequency
 
@@ -568,9 +605,9 @@ int main(int argc, char *argv[])
 
 說明：
 
-解析檔名，例如 audio_f400_out.wav → f = 400 Hz
-
-若抓不到數字，程式退出
+透過字串搜尋函式 `strchr()` 找出第二個 `'f'` 之後的數字作為截止頻率。  
+例如：輸入檔名 `"test_f400_in.wav"` → `f = 400 Hz`。  
+若解析失敗則輸出錯誤訊息並結束。
 
 
 ## 8. 設定 RC 濾波參數
@@ -583,10 +620,12 @@ int main(int argc, char *argv[])
 ```
 
 說明：
+設定 RC 濾波器參數：
 
-計算 RC 濾波係數 a
-
-用於離散一階 RC 濾波公式
+- `T`：取樣週期 (1/fs)。
+- `R`：電阻（固定 1kΩ）。
+- `C`：依頻率計算電容值。
+- `a`：離散化濾波係數。
 
 ## 9. 初始化濾波暫存
 
@@ -597,10 +636,11 @@ int main(int argc, char *argv[])
 
 
 說明：
+初始化濾波暫存與計算總取樣數：
 
-左右聲道濾波暫存
+- `out_l`, `out_r`：左右聲道的上一個輸出值，用於一階 RC 濾波計算。
+- `total_samples`：總取樣數 (每個通道的樣本數)，用於迴圈處理整個音訊資料。
 
-計算總取樣數
 
 ## 10. RC 低通濾波處理
 
@@ -624,10 +664,19 @@ int main(int argc, char *argv[])
 
 ```
 說明：
+RC 低通濾波處理迴圈：
 
-使用離散 RC 公式對左右聲道濾波
+- 使用 `for` 迴圈逐樣本處理左右聲道 (`n+=2` 遍歷 stereo array)。
+- `in_L`、`in_R`：當前左右聲道輸入樣本。
+- RC 濾波公式：
+- 'out_l = (1-a) * in_L + a * out_l;'
+  'out_r = (1-a) * in_R + a * out_r;'
 
-限幅在 16-bit PCM 範圍內
+
+其中 `a` 控制平滑程度，上一個輸出影響下一個輸出。
+- 將濾波後結果回寫到 `stereo` 陣列，使用 `round()` 並轉型為 `short`。
+- 限幅 (clipping)：確保輸出值不超過 16-bit PCM 的範圍 [-32768, 32767]，避免溢位。
+
 
 ## 11. 寫出濾波後 WAV
 
@@ -648,10 +697,16 @@ int main(int argc, char *argv[])
 ```
 
 說明：
+寫出濾波後的 WAV 檔案：
 
-開啟輸出檔案並寫入 header 與濾波後音訊
-
-釋放記憶體並結束程式
+- `fopen(out_fn, "wb")`：以二進位寫入模式開啟輸出檔案。
+- 若開檔失敗，輸出錯誤訊息並結束程式。
+- `fwrite`：
+  - 先寫入 `RIFFHeader`、`FmtSubchunk`、`DataSubchunk` 標頭。
+  - 再寫入濾波後的 PCM 音訊資料 `stereo`。
+- 釋放動態配置的記憶體 `free(stereo)`。
+- 關閉檔案 `fclose(fp)`。
+- 程式結束 `return 0;`。
 
 
 ### **濾波結果**
